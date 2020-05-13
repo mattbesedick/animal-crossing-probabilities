@@ -16,8 +16,10 @@ module.exports = buildSchema(`
     }
     
     type RootQuery {
-            fish: [Fish!]!
-        }
+        fish: [Fish!]!
+        allFishCaught: [FishCaught!]!
+        allFishCaughtGivenMonth(month: String!): [FishCaught!]        
+    }
 
     type RootMutation {
         createFish(name: String, available: [String!], sellingPrice: Int! ): Fish

@@ -5,8 +5,29 @@ module.exports = {
     fish: async () => {
         try {
             const allFish = await Fish.find()
-            console.log(allFish)
             return allFish.map(record => { return { ...record._doc } })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    allFishCaught: async () => {
+        try {
+            const allFish = await FishCaught.find()
+            return allFish.map(record => {
+                console.log({ ...record._doc })
+                return { ...record._doc }
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    allFishCaughtGivenMonth: async args => {
+        try {
+            const allFish = await FishCaught.find({ month: args.month })
+            return allFish.map(record => {
+                console.log({ ...record._doc })
+                return { ...record._doc }
+            })
         } catch (err) {
             console.log(err)
         }
