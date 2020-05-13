@@ -12,7 +12,7 @@ const fishCaught = new Schema({
         type: String,
         required: true
     },
-    amount: {
+    amountCaught: {
         type: String,
         required: true
     },

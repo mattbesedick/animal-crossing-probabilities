@@ -6,6 +6,12 @@ const fishSchema = new Schema({
     name: {
         type: String,
         required: true
+    },
+    available: {
+        type: [String]
+    },
+    sellingPrice: {
+        type: Number
     }
 })
 
