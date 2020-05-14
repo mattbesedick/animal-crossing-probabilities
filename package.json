@@ -7,13 +7,17 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
-    "mongoose": "^5.9.13"
+    "mongoose": "^5.9.13",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
   },
   "scripts": {
-    "start": "nodemon app.js -w"
+    "start": "nodemon ./server -w",
+    "start-dev": "npm start node"
   },
   "author": "",
   "license": "ISC"

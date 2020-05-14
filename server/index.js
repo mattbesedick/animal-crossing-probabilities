@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const app = express();
 const graphqlHttp = require('express-graphql')
 const mongoose = require('mongoose')
@@ -12,6 +13,8 @@ const PORT = 4000
 
 app.use(express.json())
 
+//static file-serving middleware
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 app.use('/api', graphqlHttp({
     schema: gqlSchema,
@@ -19,7 +22,7 @@ app.use('/api', graphqlHttp({
     graphiql: true
 }))
 
-mongoose.connect(`mongodb+srv://mb:0iXvWLSnaFubP7nv@acnh-gihis.mongodb.net/acnh-stackathon?retryWrites=true&w=majority`).then(() => {
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@acnh-gihis.mongodb.net/acnh-stackathon?retryWrites=true&w=majority`).then(() => {
     app.listen(process.env.PORT || PORT, () => {
         console.log("server is up at port 4000")
     })
