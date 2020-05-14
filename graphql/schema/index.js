@@ -6,6 +6,7 @@ module.exports = buildSchema(`
         name: String
         available: [String!]!
         sellingPrice: Int!
+        imageUrl: String
     }    
 
     type FishCaught {

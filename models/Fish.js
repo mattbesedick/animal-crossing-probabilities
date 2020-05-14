@@ -12,6 +12,9 @@ const fishSchema = new Schema({
     },
     sellingPrice: {
         type: Number
+    },
+    imageUrl: {
+        type: String
     }
 })
 
