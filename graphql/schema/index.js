@@ -18,7 +18,7 @@ module.exports = buildSchema(`
     type RootQuery {
         fish: [Fish!]!
         allFishCaught: [FishCaught!]!
-        allFishCaughtGivenMonth(month: String!): [FishCaught!]        
+        calculateProbabilityGivenMonth(month: String!): [FishCaught]        
     }
 
     type RootMutation {

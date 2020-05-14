@@ -21,13 +21,16 @@ module.exports = {
             console.log(err)
         }
     },
-    allFishCaughtGivenMonth: async args => {
+    calculateProbabilityGivenMonth: async args => {
         try {
-            const allFish = await FishCaught.find({ month: args.month })
-            return allFish.map(record => {
-                console.log({ ...record._doc })
-                return { ...record._doc }
-            })
+            const allFish = await FishCaught.aggregate([
+                { $group: { _id: `$month`, total: { $sum: "$amountCaught" } } }
+            ])
+            console.log(allFish)
+            // return allFish.map(record => {
+            //     console.log({ ...record._doc })
+            //     return { ...record._doc }
+            // })
         } catch (err) {
             console.log(err)
         }

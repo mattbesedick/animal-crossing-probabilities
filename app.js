@@ -2,7 +2,6 @@ const express = require('express')
 const app = express();
 const graphqlHttp = require('express-graphql')
 const mongoose = require('mongoose')
-const Fish = require('./models/Fish')
 const gqlSchema = require('./graphql/schema')
 const resolvers = require('./graphql/resolvers')
 
