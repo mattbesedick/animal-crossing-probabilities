@@ -23,14 +23,33 @@ module.exports = {
     },
     calculateProbabilityGivenMonth: async args => {
         try {
+            //finds totals of all fish caught by month
             const allFish = await FishCaught.aggregate([
                 { $group: { _id: `$month`, total: { $sum: "$amountCaught" } } }
             ])
-            console.log(allFish)
-            // return allFish.map(record => {
-            //     console.log({ ...record._doc })
-            //     return { ...record._doc }
-            // })
+            //filters out the month user is looking for
+            let fishForMonth = allFish.filter(month => month._id === args.month)[0];
+
+            //groups fishCaught by name, sums up totals for each fish given the month
+            const probabilityPerFish = await FishCaught.aggregate([
+                { $match: { month: args.month } },
+                { $group: { _id: "$name", total: { $sum: "$amountCaught" } } }])
+
+            let totals = []
+            //calculates probability for each fish caught in the given month
+            probabilityPerFish.forEach(fish => {
+                let percentage = (fish.total / fishForMonth.total).toFixed(2)
+
+                const probability = {
+                    name: fish._id,
+                    percentage
+                }
+                totals.push(probability)
+            })
+
+
+
+            return [...totals]
         } catch (err) {
             console.log(err)
         }
