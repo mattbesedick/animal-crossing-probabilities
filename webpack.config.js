@@ -26,6 +26,9 @@ module.exports = {
 				include: pathLib.resolve(__dirname, "client"),
 				exclude: /node_modules/,
 				loader: "babel-loader",
+				options: {
+					presets: ["@babel/preset-react"],
+				},
 			},
 		],
 	},
