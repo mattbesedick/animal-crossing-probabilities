@@ -35,13 +35,15 @@
 		"@babel/register": "^7.4.0",
 		"babel-eslint": "^10.0.1",
 		"babel-loader": "^8.0.5",
+		"mongo-seeding": "^3.4.1",
 		"morgan": "^1.10.0",
 		"nodemon": "^2.0.3"
 	},
 	"scripts": {
 		"start": "nodemon ./server -w",
 		"start-dev": "npm run build & npm run start",
-		"build": "webpack -w"
+		"build": "webpack -w",
+		"seed": "node ./server/seed.js"
 	},
 	"author": "",
 	"license": "ISC"

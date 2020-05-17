@@ -1,14 +1,16 @@
-const { buildSchema } = require('graphql')
+const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
     type Probability {
         name: String!
         percentage: Float!
+       
     }
     type Fish {
         _id: ID
         name: String
         available: [String!]!
+        location: String
         sellingPrice: Int!
         imageUrl: String
     }    
@@ -27,7 +29,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        createFish(name: String, available: [String!], sellingPrice: Int! ): Fish
+        createFish(name: String, location: String, available: [String!], sellingPrice: Int!): Fish
         createFishCaught(name: String!, month: String!,  amountCaught: Int!): FishCaught
         updateFish(name: String): Fish
     }
@@ -36,4 +38,4 @@ module.exports = buildSchema(`
         query: RootQuery
         mutation: RootMutation
     }
-    `)
+    `);
