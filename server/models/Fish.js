@@ -11,7 +11,7 @@ const fishSchema = new Schema({
 		name: { type: String }
 	},
 	available: {
-		type: [ String ]
+		type: [ [ String ] ]
 	},
 	sellingPrice: {
 		type: Number

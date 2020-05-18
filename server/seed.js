@@ -1,12 +1,5 @@
-let { Seeder } = require('mongo-seeding');
-
-const config = {
-	database: `mongodb+srv://${process.env.MONGO_USER}:${process.env
-		.MONGO_PASSWORD}@acnh-gihis.mongodb.net/acnh-stackathon?retryWrites=true&w=majority`,
-	dropDatabase: true
-};
-
-Seeder = new Seeder(config);
+const mongoose = require('mongoose');
+const Fish = require('./models/Fish');
 
 const fish = [
 	{
@@ -320,10 +313,28 @@ const fish = [
 
 const seed = async () => {
 	try {
-		await Seeder.import(fish);
+		let newFish = [];
+		console.log('here');
+		fish.forEach((fish) => {
+			newFish.push(new Fish(fish));
+		});
+
+		newFish.forEach((fish) => {
+			Fish.create(fish);
+		});
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-seed();
+mongoose
+	.connect(
+		`mongodb+srv://${process.env.MONGO_USER}:${process.env
+			.MONGO_PASSWORD}@acnh-gihis.mongodb.net/acnh-stackathon?retryWrites=true&w=majority`
+	)
+	.then(() => {
+		seed();
+	})
+	.catch((err) => {
+		console.log(err);
+	});
