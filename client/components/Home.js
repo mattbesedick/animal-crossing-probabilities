@@ -134,7 +134,7 @@ const Home = (props) => {
 									displayEmpty
 									onChange={handleChange}
 								>
-									<MenuItem value="">
+									<MenuItem value={0}>
 										<em>Hemisphere</em>
 									</MenuItem>
 									<MenuItem value={0}>Northern</MenuItem>
