@@ -4,6 +4,13 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+
+const theme = createMuiTheme({
+	typography: {
+		fontFamily: ["FinkHeavy"],
+	},
+});
 
 const client = new ApolloClient({
 	uri: "http://localhost:4000/api",
@@ -11,9 +18,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
 	<ApolloProvider client={client}>
-		<Router>
-			<App />
-		</Router>
+		<ThemeProvider theme={theme}>
+			<Router>
+				<App />
+			</Router>
+		</ThemeProvider>
 	</ApolloProvider>,
 	document.getElementById("root")
 );

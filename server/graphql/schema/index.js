@@ -1,10 +1,10 @@
-const { buildSchema } = require('graphql');
+const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
     type Probability {
         name: String!
         percentage: Float!
-       
+        imageUrl: String
     }
     type Fish {
         _id: ID
@@ -20,12 +20,13 @@ module.exports = buildSchema(`
         name: String!
         month: String!
         amountCaught: Int!
+        hemisphere: Int
     }
     
     type RootQuery {
         fish: [Fish!]!
         allFishCaught: [FishCaught!]!
-        calculateProbabilityGivenMonth(month: String!): [Probability]
+        calculateProbabilityGivenMonth(month: String!, hemisphere: Int!): [Probability]
     }
 
     type RootMutation {

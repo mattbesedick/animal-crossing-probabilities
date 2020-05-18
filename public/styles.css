@@ -1,10 +1,10 @@
 @font-face {
-	font-family: FinkHeavy;
+	font-family: "FinkHeavy";
 	src: url("/FinkHeavy.tff") format("woff2");
 }
 
 body {
-	font-family: FinkHeavy;
+	font-family: "FinkHeavy";
 	height: 100vh;
 	background: linear-gradient(180deg, #2a27c7 0%, rgba(74, 71, 220, 0.6) 100%);
 	text-align: center;
