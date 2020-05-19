@@ -14,7 +14,6 @@ import FishBubble from "./FishBubble";
 
 const useStyles = makeStyles({
 	media: {
-		paddingTop: "50px",
 		height: "200px",
 		width: "300px",
 	},
@@ -167,7 +166,7 @@ const Home = (props) => {
 					<svg
 						viewBox="0 0 1440 293"
 						width="100%"
-						height="100%"
+						height="90%"
 						style={{ position: "fixed", bottom: -425, left: 0, zIndex: -1 }}
 					>
 						<path

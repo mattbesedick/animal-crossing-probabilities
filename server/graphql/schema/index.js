@@ -25,6 +25,7 @@ module.exports = buildSchema(`
     
     type RootQuery {
         fish: [Fish!]!
+        fishMonth(month: String!): [Fish!]!
         allFishCaught: [FishCaught!]!
         calculateProbabilityGivenMonth(month: String!, hemisphere: Int!): [Probability]
     }
