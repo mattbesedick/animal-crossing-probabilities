@@ -9,7 +9,7 @@ module.exports = buildSchema(`
     type Fish {
         _id: ID
         name: String
-        available: [String!]!
+        available: [[String]]!
         location: String
         sellingPrice: Int!
         imageUrl: String
@@ -25,7 +25,7 @@ module.exports = buildSchema(`
     
     type RootQuery {
         fish: [Fish!]!
-        fishMonth(month: String!): [Fish!]!
+        fishMonth(month: String!, hemisphere: Int): [Fish!]!
         allFishCaught: [FishCaught!]!
         calculateProbabilityGivenMonth(month: String!, hemisphere: Int!): [Probability]
     }

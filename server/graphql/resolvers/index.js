@@ -12,6 +12,27 @@ module.exports = {
 			console.log(err);
 		}
 	},
+	fishMonth: async (args) => {
+		try {
+			const allFish = await Fish.find();
+			let newFish = allFish.map((fish) => {
+				const fishObj = {
+					name: fish.name,
+					available: fish.available[args.hemisphere],
+				};
+				return fishObj;
+			});
+
+			let test = newFish.map((fish) => {
+				if (fish.available.includes("May")) {
+					return fish;
+				}
+			});
+			console.log("test", test);
+		} catch (err) {
+			console.log(err);
+		}
+	},
 	allFishCaught: async () => {
 		try {
 			const allFish = await FishCaught.find();
