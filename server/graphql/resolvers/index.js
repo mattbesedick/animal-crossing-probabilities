@@ -26,11 +26,13 @@ module.exports = {
 			});
 
 			//filters all fish that are available to catch in given month
-			let newList = newFish.map((fish) => {
+			let newList = newFish.filter((fish) => {
 				if (fish.available.includes(args.month)) {
+					console.log("filter", fish);
 					return fish;
 				}
 			});
+
 			return [...newList];
 		} catch (err) {
 			console.log(err);
