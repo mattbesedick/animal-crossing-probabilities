@@ -11,7 +11,7 @@ import {
 	InputLabel,
 } from "@material-ui/core";
 import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import FishCaughtBubble from "./FishCaughtBubble";
 
 const useStyles = makeStyles({
@@ -50,6 +50,14 @@ const useStyles = makeStyles({
 	},
 });
 
+const createFish = gql`
+	mutation {
+		createFishCaught(name: "name", month: "month", amountCaught: Int) {
+			name
+		}
+	}
+`;
+
 const Contribute = (props) => {
 	const classes = useStyles();
 	const [month, setMonth] = useState("");
@@ -57,6 +65,7 @@ const Contribute = (props) => {
 	const [amount, setAmount] = useState(0);
 	const [fishName, setFishName] = useState("");
 	const [fishCaught, setFishCaught] = useState([]);
+	const [addFish, { data2 }] = useMutation(createFish);
 
 	const handleChange = (event) => {
 		if (event.target.name === "hemisphere") {
@@ -91,7 +100,19 @@ const Contribute = (props) => {
 		);
 	};
 
-	const handleSubmit = (event) => {};
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		fishCaught.map((fish) => {
+			addFish({
+				variables: {
+					name: fish.name,
+					month: fish.month,
+					amountCaught: fish.amount,
+				},
+			});
+		});
+		setFishCaught([]);
+	};
 
 	const fish = gql`
 		{
@@ -269,6 +290,18 @@ const Contribute = (props) => {
 							);
 						})}
 					</Grid>
+				</Grid>
+				<Grid item>
+					<Button
+						type="submit"
+						style={{ minWidth: "200px", marginTop: "40px" }}
+						variant="outlined"
+						onClick={handleSubmit}
+					>
+						<Typography variant="h5" style={{ color: "white" }}>
+							Submit Fish
+						</Typography>
+					</Button>
 				</Grid>
 				<Grid item>
 					<svg
