@@ -15,6 +15,8 @@ module.exports = {
 	fishMonth: async (args) => {
 		try {
 			const allFish = await Fish.find();
+
+			//returns all fish with the available array set to correct hemisphere..... 0 = nothern, 1 = southern
 			let newFish = allFish.map((fish) => {
 				const fishObj = {
 					name: fish.name,
@@ -23,12 +25,13 @@ module.exports = {
 				return fishObj;
 			});
 
-			let test = newFish.map((fish) => {
-				if (fish.available.includes("May")) {
+			//filters all fish that are available to catch in given month
+			let newList = newFish.map((fish) => {
+				if (fish.available.includes(args.month)) {
 					return fish;
 				}
 			});
-			console.log("test", test);
+			return [...newList];
 		} catch (err) {
 			console.log(err);
 		}
