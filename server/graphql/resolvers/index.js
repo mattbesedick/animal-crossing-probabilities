@@ -12,6 +12,32 @@ module.exports = {
 			console.log(err);
 		}
 	},
+	fishMonth: async (args) => {
+		try {
+			const allFish = await Fish.find();
+
+			//returns all fish with the available array set to correct hemisphere..... 0 = nothern, 1 = southern
+			let newFish = allFish.map((fish) => {
+				const fishObj = {
+					name: fish.name,
+					available: fish.available[args.hemisphere],
+				};
+				return fishObj;
+			});
+
+			//filters all fish that are available to catch in given month
+			let newList = newFish.filter((fish) => {
+				if (fish.available.includes(args.month)) {
+					console.log("filter", fish);
+					return fish;
+				}
+			});
+
+			return [...newList];
+		} catch (err) {
+			console.log(err);
+		}
+	},
 	allFishCaught: async () => {
 		try {
 			const allFish = await FishCaught.find();
@@ -46,7 +72,7 @@ module.exports = {
 
 			//calculates probability for each fish caught in the given month
 			let totals = await probabilityPerFish.map(async (fish) => {
-				let percentage = (fish.total / fishForMonth.total).toFixed(2) * 100;
+				let percentage = ((fish.total / fishForMonth.total) * 100).toFixed(1);
 
 				const picture = await Fish.findOne({ name: fish._id });
 
@@ -78,11 +104,14 @@ module.exports = {
 		}
 	},
 	createFishCaught: async (args) => {
+		console.log(args);
+		console.log("herererere");
 		try {
 			const fish = new FishCaught({
 				name: args.name,
 				month: args.month,
 				amountCaught: args.amountCaught,
+				hemisphere: args.hemisphere,
 			});
 			await fish.save();
 			return { ...fish._doc };

@@ -14,12 +14,11 @@ import FishBubble from "./FishBubble";
 
 const useStyles = makeStyles({
 	media: {
-		paddingTop: "50px",
 		height: "200px",
 		width: "300px",
 	},
 	fish: {
-		marginLeft: "25px",
+		marginLeft: "75px",
 		marginTop: "25px",
 		background: "rgba(196, 196, 196, 0.2)",
 		width: "565px",
@@ -53,9 +52,14 @@ const useStyles = makeStyles({
 	},
 	fishDude: {
 		position: "fixed",
-		bottom: "0",
+		bottom: "210px",
+		right: "75px",
 		height: "300px",
 		width: "300px",
+		zIndex: "-2",
+		"@media (max-width: 1400px)": {
+			bottom: "180px",
+		},
 	},
 });
 
@@ -91,7 +95,7 @@ const Home = (props) => {
 					<img src="./AnimalCrossing.png" className={classes.media} />
 				</Grid>
 				<Grid item>
-					<Typography>
+					<Typography variant="h6" style={{ color: "white" }}>
 						Adjust the filters below to see the likelihood of catching a fish
 						given a specific month
 					</Typography>
@@ -104,18 +108,17 @@ const Home = (props) => {
 								style={{ minWidth: "100px", maxWidth: "150px" }}
 							>
 								<Select
-									labelId="demo-simple-select-helper-label"
-									id="demo-simple-select-helper"
 									value={month}
 									name="month"
 									displayEmpty
 									onChange={handleChange}
+									style={{ color: "white" }}
 								>
 									<MenuItem value="">
 										<em>Month</em>
 									</MenuItem>
 									<MenuItem value="january">January</MenuItem>
-									<MenuItem value="febuary">Febuary</MenuItem>
+									<MenuItem value="february">February</MenuItem>
 									<MenuItem value="march">March</MenuItem>
 									<MenuItem value="may">May</MenuItem>
 								</Select>
@@ -127,14 +130,13 @@ const Home = (props) => {
 								style={{ minWidth: "100px", maxWidth: "150px" }}
 							>
 								<Select
-									labelId="demo-simple-select-helper-label"
-									id="demo-simple-select-helper"
 									value={hemisphere}
 									name="hemisphere"
 									displayEmpty
 									onChange={handleChange}
+									style={{ color: "white" }}
 								>
-									<MenuItem value="">
+									<MenuItem value={0}>
 										<em>Hemisphere</em>
 									</MenuItem>
 									<MenuItem value={0}>Northern</MenuItem>
@@ -167,7 +169,7 @@ const Home = (props) => {
 					<svg
 						viewBox="0 0 1440 293"
 						width="100%"
-						height="100%"
+						height="90%"
 						style={{ position: "fixed", bottom: -425, left: 0, zIndex: -1 }}
 					>
 						<path
@@ -176,15 +178,16 @@ const Home = (props) => {
 						/>
 					</svg>
 					<img
+						className={classes.fishDude}
 						src="/fish.png"
-						style={{
-							position: "fixed",
-							height: "300px",
-							width: "300px",
-							bottom: "80px",
-							right: "75px",
-							zIndex: "-2",
-						}}
+						// style={{
+						// 	position: "fixed",
+						// 	height: "300px",
+						// 	width: "300px",
+						// 	bottom: "210px",
+						// 	right: "75px",
+						// 	zIndex: "-2",
+						// }}
 					/>
 					<img
 						src="/palm.png"
@@ -192,7 +195,7 @@ const Home = (props) => {
 							position: "fixed",
 							height: "300px",
 							width: "300px",
-							bottom: "115px",
+							bottom: "270px",
 							left: "75px",
 							zIndex: "-2",
 						}}
