@@ -22,6 +22,9 @@ const FishBubble = (props) => {
 					className={classes.root}
 					fill="#B47C42"
 				/>
+				<text x="50" y="50" textAnchor="middle" fontSize="10px">
+					{props.fish.name}
+				</text>
 				<text x="50" y="35" textAnchor="middle" fontSize="30px">
 					{props.fish.percentage}%
 				</text>
@@ -29,7 +32,7 @@ const FishBubble = (props) => {
 					xlinkHref={`${props.fish.imageUrl}`}
 					className={classes.image}
 					x="25"
-					y="40"
+					y="45"
 				/>
 			</svg>
 		</div>

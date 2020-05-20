@@ -104,11 +104,14 @@ module.exports = {
 		}
 	},
 	createFishCaught: async (args) => {
+		console.log(args);
+		console.log("herererere");
 		try {
 			const fish = new FishCaught({
 				name: args.name,
 				month: args.month,
 				amountCaught: args.amountCaught,
+				hemisphere: args.hemisphere,
 			});
 			await fish.save();
 			return { ...fish._doc };

@@ -13,6 +13,7 @@ import {
 import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import FishCaughtBubble from "./FishCaughtBubble";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
 	fish: {
@@ -48,11 +49,32 @@ const useStyles = makeStyles({
 	input: {
 		color: "white",
 	},
+	fishDude: {
+		position: "fixed",
+		bottom: "210px",
+		right: "75px",
+		height: "300px",
+		width: "300px",
+		zIndex: "-2",
+		"@media (max-width: 1400px)": {
+			bottom: "180px",
+		},
+	},
 });
 
 const createFish = gql`
-	mutation {
-		createFishCaught(name: "name", month: "month", amountCaught: Int) {
+	mutation CreateFish(
+		$name: String!
+		$month: String!
+		$amountCaught: Int!
+		$hemisphere: Int
+	) {
+		createFishCaught(
+			name: $name
+			month: $month
+			amountCaught: $amountCaught
+			hemisphere: $hemisphere
+		) {
 			name
 		}
 	}
@@ -66,6 +88,7 @@ const Contribute = (props) => {
 	const [fishName, setFishName] = useState("");
 	const [fishCaught, setFishCaught] = useState([]);
 	const [addFish, { data2 }] = useMutation(createFish);
+	const [redirect, setRedirect] = useState(false);
 
 	const handleChange = (event) => {
 		if (event.target.name === "hemisphere") {
@@ -83,7 +106,8 @@ const Contribute = (props) => {
 		const aFish = {
 			name: fishName,
 			month: month,
-			amount: amount,
+			amount: parseInt(amount),
+			hemisphere: parseInt(hemisphere),
 		};
 
 		setFishCaught([...fishCaught, aFish]);
@@ -102,16 +126,24 @@ const Contribute = (props) => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+
 		fishCaught.map((fish) => {
+			console.log(fish);
 			addFish({
 				variables: {
 					name: fish.name,
 					month: fish.month,
 					amountCaught: fish.amount,
+					hemisphere: fish.hemisphere,
+				},
+				refetchQueries: {
+					query: ["calculateProbabilityGivenMonth"],
+					variables: { month: month, hemisphere: hemisphere },
 				},
 			});
 		});
 		setFishCaught([]);
+		window.location.href = "/";
 	};
 
 	const fish = gql`
@@ -130,7 +162,9 @@ const Contribute = (props) => {
 		return (
 			<Grid container direction="column" alignContent="center" spacing={2}>
 				<Grid item className={classes.contribute}>
-					<Typography variant="h1">Contribute</Typography>
+					<Typography variant="h1" style={{ color: "white" }}>
+						Contribute
+					</Typography>
 				</Grid>
 				<Grid item>
 					<Grid container direction="row" justify="center" spacing={1}>
@@ -174,18 +208,18 @@ const Contribute = (props) => {
 									<MenuItem value="">
 										<em>Month</em>
 									</MenuItem>
-									<MenuItem value="Janurary">Janurary</MenuItem>
-									<MenuItem value="Febuaray">Febuaray</MenuItem>
-									<MenuItem value="March">March</MenuItem>
-									<MenuItem value="April">April</MenuItem>
-									<MenuItem value="May">May</MenuItem>
-									<MenuItem value="June">June</MenuItem>
-									<MenuItem value="July">July</MenuItem>
-									<MenuItem value="August">August</MenuItem>
-									<MenuItem value="September">September</MenuItem>
-									<MenuItem value="October">October</MenuItem>
-									<MenuItem value="November">November</MenuItem>
-									<MenuItem value="December">December</MenuItem>
+									<MenuItem value="january">January</MenuItem>
+									<MenuItem value="february">February</MenuItem>
+									<MenuItem value="march">March</MenuItem>
+									<MenuItem value="april">April</MenuItem>
+									<MenuItem value="may">May</MenuItem>
+									<MenuItem value="june">June</MenuItem>
+									<MenuItem value="july">July</MenuItem>
+									<MenuItem value="august">August</MenuItem>
+									<MenuItem value="september">September</MenuItem>
+									<MenuItem value="october">October</MenuItem>
+									<MenuItem value="november">November</MenuItem>
+									<MenuItem value="december">December</MenuItem>
 								</Select>
 							</FormControl>
 						</Grid>
@@ -315,24 +349,14 @@ const Contribute = (props) => {
 							fill="#0E0061"
 						/>
 					</svg>
-					<img
-						src="/fish.png"
-						style={{
-							position: "fixed",
-							height: "300px",
-							width: "300px",
-							bottom: "80px",
-							right: "75px",
-							zIndex: "-2",
-						}}
-					/>
+					<img className={classes.fishDude} src="/fish.png" />
 					<img
 						src="/palm.png"
 						style={{
 							position: "fixed",
 							height: "300px",
 							width: "300px",
-							bottom: "115px",
+							bottom: "270px",
 							left: "75px",
 							zIndex: "-2",
 						}}

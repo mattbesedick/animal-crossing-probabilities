@@ -36,7 +36,7 @@ module.exports = buildSchema(`
 
     type RootMutation {
         createFish(name: String, location: String, available: [String!], sellingPrice: Int!): Fish
-        createFishCaught(name: String!, month: String!,  amountCaught: Int!): FishCaught
+        createFishCaught(name: String!, month: String!,  amountCaught: Int!, hemisphere: Int): FishCaught
         updateFish(name: String): Fish
     }
 
