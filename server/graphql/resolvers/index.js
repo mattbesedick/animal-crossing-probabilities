@@ -28,7 +28,6 @@ module.exports = {
 			//filters all fish that are available to catch in given month
 			let newList = newFish.filter((fish) => {
 				if (fish.available.includes(args.month)) {
-					console.log("filter", fish);
 					return fish;
 				}
 			});
@@ -42,7 +41,6 @@ module.exports = {
 		try {
 			const allFish = await FishCaught.find();
 			return allFish.map((record) => {
-				console.log({ ...record._doc });
 				return { ...record._doc };
 			});
 		} catch (err) {
@@ -104,8 +102,6 @@ module.exports = {
 		}
 	},
 	createFishCaught: async (args) => {
-		console.log(args);
-		console.log("herererere");
 		try {
 			const fish = new FishCaught({
 				name: args.name,
