@@ -72,7 +72,7 @@ module.exports = {
 
 			//calculates probability for each fish caught in the given month
 			let totals = await probabilityPerFish.map(async (fish) => {
-				let percentage = (fish.total / fishForMonth.total).toFixed(2) * 100;
+				let percentage = ((fish.total / fishForMonth.total) * 100).toFixed(1);
 
 				const picture = await Fish.findOne({ name: fish._id });
 
