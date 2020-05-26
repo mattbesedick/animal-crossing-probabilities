@@ -44,7 +44,7 @@
 		"nodemon": "^2.0.3"
 	},
 	"scripts": {
-		"start": "nodemon ./server",
+		"start": "node ./server",
 		"start-dev": "npm run build & npm run start",
 		"build": "webpack",
 		"seed": "node ./server/seed.js"
